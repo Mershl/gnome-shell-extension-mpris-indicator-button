@@ -21,7 +21,7 @@
 // No translatable strings in this file.
 const { Atk, Clutter, Gio, GObject, Gtk, St } = imports.gi;
 
-const { AggregateLayout } = imports.ui.panel;
+// const { AggregateLayout } = imports.ui.panel;
 const { Button } = imports.ui.panelMenu;
 const {
   PopupBaseMenuItem,
@@ -1567,7 +1567,7 @@ var MprisIndicatorButton = GObject.registerClass(
       super._init(0.5, "Mpris Indicator Button");
       this.accessible_name = "Mpris";
       this.menu.actor.add_style_class_name("aggregate-menu");
-      this.menu.box.set_layout_manager(new AggregateLayout());
+      // this.menu.box.set_layout_manager(new AggregateLayout());
 
       this.hide();
 
