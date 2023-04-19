@@ -19,7 +19,7 @@
  */
 
 // No translatable strings in this file.
-const { Gio, GLib, GObject, Gtk, Meta, Shell } = imports.gi;
+const { Gio, GLib, GObject, Gtk, Meta, Shell, St } = imports.gi;
 
 const { activateWindow } = imports.ui.main;
 
@@ -1904,7 +1904,8 @@ const MprisProxyHandler = GObject.registerClass({
 
     _getIcon(symbolic) {
         let iconName = symbolic ? `${this.app_id}-symbolic` : this.app_id;
-        return this.app_id && (Gtk.IconTheme.get_default() ? Gtk.IconTheme.get_default().has_icon(iconName) : false) ? Gio.ThemedIcon.new(iconName) : null;
+        const iconTheme = new St.IconTheme();
+        return this.app_id && (iconTheme ? iconTheme.has_icon(iconName) : false) ? Gio.ThemedIcon.new(iconName) : null;
     }
 
     _getMimeTypeIcon() {
