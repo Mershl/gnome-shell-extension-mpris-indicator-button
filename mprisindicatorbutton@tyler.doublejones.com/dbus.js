@@ -19,11 +19,17 @@
  */
 
 // No translatable strings in this file.
-const { Gio, GLib, GObject, Gtk, Meta, Shell, St } = imports.gi;
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gtk from 'gi://Gtk';
+import Meta from 'gi://Meta';
+import Shell from 'gi://Shell';
+import St from 'gi://St';
 
-const { activateWindow } = imports.ui.main;
+import { activateWindow } from 'resource:///org/gnome/shell/ui/main.js';
 
-const UUID = imports.misc.extensionUtils.getCurrentExtension().metadata.uuid;
+const UUID = "mprisindicatorbutton@tyler.doublejones.com";
 const MPRIS_PREFIX = 'org.mpris.MediaPlayer2.';
 // See https://specifications.freedesktop.org/mpris-spec/latest/Player_Interface.html#Simple-Type:Track_Id
 const NO_TRACK_PATH = '/org/mpris/MediaPlayer2/TrackList/NoTrack';
@@ -364,14 +370,14 @@ function parseMetadata(metadata, playerName) {
     return [obj_id, cover_url, artist, title, mimetype_icon];
 }
 
-function logMyError(error) {
+export function logMyError(error) {
     // Cancelling counts as an error don't spam the logs.
     if (!error.matches(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED)) {
         logError(error, `Extension ${UUID}`);
     }
 }
 
-var DBusProxyHandler = GObject.registerClass({
+export var DBusProxyHandler = GObject.registerClass({
     GTypeName: 'DBusProxyHandler',
     Signals: {
         'add-player': {

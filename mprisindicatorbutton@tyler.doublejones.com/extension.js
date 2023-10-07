@@ -19,40 +19,36 @@
  */
 
 // No translatable strings in this file.
-const Panel = imports.ui.main.panel;
+import { panel } from 'resource:///org/gnome/shell/ui/main.js';
 
-const stockMpris = Panel.statusArea.dateMenu._messageList._mediaSection;
+const stockMpris = panel.statusArea.dateMenu._messageList._mediaSection;
 const shouldShow = stockMpris._shouldShow;
 
-const { MprisIndicatorButton } = imports.misc.extensionUtils.getCurrentExtension().imports.widgets;
+import { MprisIndicatorButton } from './widgets.js';
 
 const ROLE = 'mprisindicatorbutton';
 
-function init(extensionMeta) {
-    let localeDir = extensionMeta.dir.get_child('locale');
-    let localePath = localeDir.query_exists(null) ? localeDir.get_path() : imports.misc.config.LOCALEDIR;
-    imports.gettext.bindtextdomain(ROLE, localePath);
-}
-
-function enable() {
-    if (!Panel.statusArea[ROLE]) {
-        stockMpris.visible = false;
-        stockMpris._shouldShow = () => false;
-        Panel.addToStatusArea(ROLE, new MprisIndicatorButton());
+export default class MprisIndicatorButtonExtension {
+    enable() {
+        if (!panel.statusArea[ROLE]) {
+            stockMpris.visible = false;
+            stockMpris._shouldShow = () => false;
+            panel.addToStatusArea(ROLE, new MprisIndicatorButton());
+        }
     }
-}
 
-function disable() {
-    let indicator = Panel.statusArea[ROLE];
-    if (indicator) {
-        stockMpris._shouldShow = shouldShow;
-        stockMpris.visible = stockMpris._shouldShow();
-        // Avoid - 'JS ERROR: Exception in callback for signal:
-        // open-state-changed: Error: Argument 'descendant' (type interface) may not be null
-        // _onMenuSet/indicator.menu._openChangedId'
-        // When the Shell disables extensions on screen lock/blank and the menu happens to be open.
-        // If you connect a signal you should disconnect it... GNOME devs...
-        indicator.menu.disconnect(indicator.menu._openChangedId);
-        indicator.destroy();
+    disable() {
+        let indicator = panel.statusArea[ROLE];
+        if (indicator) {
+            stockMpris._shouldShow = shouldShow;
+            stockMpris.visible = stockMpris._shouldShow();
+            // Avoid - 'JS ERROR: Exception in callback for signal:
+            // open-state-changed: Error: Argument 'descendant' (type interface) may not be null
+            // _onMenuSet/indicator.menu._openChangedId'
+            // When the Shell disables extensions on screen lock/blank and the menu happens to be open.
+            // If you connect a signal you should disconnect it... GNOME devs...
+            indicator.menu.disconnect(indicator.menu._openChangedId);
+            indicator.destroy();
+        }
     }
 }

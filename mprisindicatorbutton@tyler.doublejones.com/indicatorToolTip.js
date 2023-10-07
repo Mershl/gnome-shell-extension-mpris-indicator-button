@@ -16,12 +16,17 @@
  */
 
 // No translatable strings in this file.
-const { Atk, Clutter, GObject, St } = imports.gi;
+import Atk from 'gi://Atk';
+import Clutter from 'gi://Clutter';
+import GObject from 'gi://GObject';
+import St from 'gi://St';
 
-const LayoutManager = imports.ui.main.layoutManager;
+import { layoutManager } from 'resource:///org/gnome/shell/ui/main.js';
 
-const TOOL_TIP_HOVER_DELAY = imports.ui.dash.DASH_ITEM_HOVER_TIMEOUT;
-const TOOL_TIP_ANIMATION_TIME = imports.ui.boxpointer.POPUP_ANIMATION_TIME;
+import * as Dash from 'resource:///org/gnome/shell/ui/dash.js';
+const TOOL_TIP_HOVER_DELAY = Dash.DASH_ITEM_HOVER_TIMEOUT;
+import * as BoxPointer from 'resource:///org/gnome/shell/ui/boxpointer.js';
+const TOOL_TIP_ANIMATION_TIME = BoxPointer.POPUP_ANIMATION_TIME;
 
 const DEFAULT_SYNC_CREATE_PROP_FLAGS = GObject.BindingFlags.DEFAULT | GObject.BindingFlags.SYNC_CREATE;
 
@@ -57,7 +62,7 @@ const ToolTipConstraint = GObject.registerClass({
         }
         // Get the monitor the the indicator is on and try to tell
         // which side it's on.
-        let monitor = LayoutManager.findMonitorForActor(indicator);
+        let monitor = layoutManager.findMonitorForActor(indicator);
         let [x, y] = indicator.get_transformed_position();
         if (vertical) {
             side = Math.floor(x) == monitor.x ? St.Side.LEFT : St.Side.RIGHT;
@@ -128,7 +133,7 @@ const ToolTipConstraint = GObject.registerClass({
 // It is meant to make it easy for others to extend and use along
 // with ToolTipConstraint (which should really never need to be touched)
 // to add tooltips to their Indicators if they like.
-var ToolTipBase = GObject.registerClass({
+export var ToolTipBase = GObject.registerClass({
     GTypeName: 'ToolTipBase',
     GTypeFlags: GObject.TypeFlags.ABSTRACT,
     Properties: {
@@ -260,7 +265,7 @@ var ToolTipBase = GObject.registerClass({
 
         this.pushSignal(this.indicator, 'destroy', this.onIndicatorDestroy.bind(this));
 
-        LayoutManager.addTopChrome(this, {affectsInputRegion: false});
+        layoutManager.addTopChrome(this, {affectsInputRegion: false});
     }
 
     get text() {

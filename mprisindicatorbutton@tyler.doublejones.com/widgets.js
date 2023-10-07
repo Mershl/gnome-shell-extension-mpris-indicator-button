@@ -19,30 +19,33 @@
  */
 
 // No translatable strings in this file.
-const { Atk, Clutter, Gio, GObject, Gtk, St } = imports.gi;
+import Atk from 'gi://Atk';
+import Clutter from 'gi://Clutter';
+import Gio from 'gi://Gio';
+import GObject from 'gi://GObject';
+import Gtk from 'gi://Gtk';
+import St from 'gi://St';
 
-// const { AggregateLayout } = imports.ui.panel;
-const { Button } = imports.ui.panelMenu;
-const {
+import { Button } from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import {
   PopupBaseMenuItem,
   PopupSubMenuMenuItem,
   PopupMenuSection,
   PopupSeparatorMenuItem,
   Ornament,
-} = imports.ui.popupMenu;
-const { Slider } = imports.ui.slider;
+} from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import { Slider } from 'resource:///org/gnome/shell/ui/slider.js';
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const {
+import {
   DBusProxyHandler,
   logMyError,
-} = imports.misc.extensionUtils.getCurrentExtension().imports.dbus;
-const {
+} from './dbus.js';
+import {
   ToolTipBase,
-} = imports.misc.extensionUtils.getCurrentExtension().imports.indicatorToolTip;
-const {
+} from './indicatorToolTip.js';
+import {
   TRANSLATED,
-} = imports.misc.extensionUtils.getCurrentExtension().imports.translations;
+} from './translations.js';
 const DEFAULT_SYNC_CREATE_PROP_FLAGS =
   GObject.BindingFlags.DEFAULT | GObject.BindingFlags.SYNC_CREATE;
 const MOUSE_BUTTON_BACK = 8;
@@ -506,8 +509,8 @@ const MainItem = GObject.registerClass(
   class MainItem extends PopupBaseMenuItem {
     _init() {
       super._init();
-      this._ornamentLabel.y_align = Clutter.ActorAlign.CENTER;
-      this._ornamentLabel.y_expand = true;
+      // this._ornamentLabel.y_align = Clutter.ActorAlign.CENTER;
+      // this._ornamentLabel.y_expand = true;
       this._signals = [];
       this.pushSignal(this, "destroy", this._onDestroy.bind(this));
     }
@@ -548,7 +551,7 @@ const MediaControlsItem = GObject.registerClass(
   class MediaControlsItem extends PopupBaseMenuItem {
     _init() {
       super._init();
-      this._ornamentLabel.destroy();
+      // this._ornamentLabel.destroy();
       this.add_style_class_name("media-controls-item");
       this._signals = [];
       this.accessible_name = TRANSLATED["Media Controls"];
@@ -1547,7 +1550,7 @@ class Player extends PopupMenuSection {
   }
 }
 
-var MprisIndicatorButton = GObject.registerClass(
+export var MprisIndicatorButton = GObject.registerClass(
   {
     GTypeName: "MprisIndicatorButton",
     Signals: {

@@ -22,7 +22,7 @@ const _ = imports.gettext.domain('mprisindicatorbutton').gettext;
 
 // TRANSLATORS: These are all of the translatable strings in this extension.
 // Any new translatable strings will be added to the end as to not break previous translations.
-var TRANSLATED = {
+export var TRANSLATED = {
     // TRANSLATORS: Non proper noun part of the extension's name.
     // User visible string and used by accessibility software.
     get ['Indicator Button']() {return _("Indicator Button");},
