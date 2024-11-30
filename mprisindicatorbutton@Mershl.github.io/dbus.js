@@ -167,6 +167,12 @@ function makeProxy(ifaceName, busName, objectPath, flags, asyncCallback) {
                                 `${busName} has no owner.`
                             );
                         }
+                        if ("DesktopEntry" in proxy && !proxy.DesktopEntry) {
+                            error = Gio.DBusError.new_for_dbus_error(
+                                ' No associated application',
+                                `${busName} has no associated application.`
+                            );
+                        }
                     } else if (!error) {
                         // Should never really happen.
                         error = Gio.DBusError.new_for_dbus_error(
