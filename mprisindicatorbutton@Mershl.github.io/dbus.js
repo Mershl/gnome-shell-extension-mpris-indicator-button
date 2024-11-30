@@ -29,7 +29,7 @@ import St from 'gi://St';
 
 import { activateWindow } from 'resource:///org/gnome/shell/ui/main.js';
 
-const UUID = "mprisindicatorbutton@tyler.doublejones.com";
+const UUID = "mprisindicatorbutton@Mershl.github.io";
 const MPRIS_PREFIX = 'org.mpris.MediaPlayer2.';
 // See https://specifications.freedesktop.org/mpris-spec/latest/Player_Interface.html#Simple-Type:Track_Id
 const NO_TRACK_PATH = '/org/mpris/MediaPlayer2/TrackList/NoTrack';
