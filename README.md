@@ -1,9 +1,14 @@
 # gnome-shell-extension-mpris-indicator-button
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
  A full featured MPRIS (Media Player Remote Interfacing Specification) tray button and display for GNOME Shell 45+
 
  This is a fork of Jason's original work that keeps the old style of showing the track information directly in the tray bar.
+
+## **Update on Gnome 48 support**
+
+Extension will no longer be maintained. For an alternative check out the great https://extensions.gnome.org/extension/4470/media-controls/
 
 ## Screenshots
 
